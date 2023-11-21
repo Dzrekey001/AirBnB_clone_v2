@@ -1,16 +1,35 @@
 #!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
 import json
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
     __file_path = 'file.json'
     __objects = {}
+    classes = {'BaseModel': BaseModel, 'User': User,
+               'State': State, 'City': City, 'Amenity': Amenity,
+               'Place': Place, 'Review': Review}
 
-    def all(self):
+    def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        return FileStorage.__objects
+        new_objects = {}
+        if cls:
+            if cls.__name__ in self.classes:
+                for key, value in self.__objects.items():
+                    cls_name = key.split(".")[0]
+                    if cls_name == cls.__name__:
+                        new_objects.update({key: value})
+        else:
+            new_objects = self.__objects
+        return new_objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -24,6 +43,15 @@ class FileStorage:
             for key, val in temp.items():
                 temp[key] = val.to_dict()
             json.dump(temp, f)
+
+    def delete(self, obj=None):
+        """
+            delete obj from __objects if it’s inside - if obj is equal to None,
+            the method should not do anything
+        """
+        if obj:
+            obj_key = "{}.{}".format(type(obj).__name__, obj.id)
+            del self.__objects[obj_key]
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -45,6 +73,6 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
