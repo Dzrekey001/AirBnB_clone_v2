@@ -244,6 +244,7 @@ class HBNBCommand(cmd.Cmd):
 
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
+            args = args.split("(")[1].split(")")[0]
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
