@@ -10,9 +10,7 @@ from models.place import Place
 from models.review import Review
 from os import getenv
 from urllib.parse import quote
-classes = {'State': State, 'City': City, 'User': User,
-           'Place': Place, 'Review': Review,
-           'Amenity': Amenity}
+classes = {'State': State, 'City': City, 'User': User}
 
 
 class DBStorage:
@@ -51,12 +49,12 @@ class DBStorage:
         if cls:
             for row in self.__session.query(cls).all():
                 obj_dict.update({'{}.{}'.
-                                format(type(cls).__name__, row.id,): row})
+                                format(type(cls).__name__, row.id): row})
         else:
-            for key, val in all_classes.items():
+            for key, val in classes.items():
                 for row in self.__session.query(val):
                     obj_dict.update({'{}.{}'.
-                                    format(type(row).__name__, row.id,): row})
+                                    format(val.__name__, row.id): row})
         return obj_dict
 
     def new(self, obj):
