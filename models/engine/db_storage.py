@@ -10,7 +10,9 @@ from models.place import Place
 from models.review import Review
 from os import getenv
 from urllib.parse import quote
-classes = {'State': State, 'City': City, 'User': User}
+classes = {'State': State, 'City': City,
+           'User': User, 'Place': Place,
+           'Review': Review, 'Amenity': Amenity}
 
 
 class DBStorage:

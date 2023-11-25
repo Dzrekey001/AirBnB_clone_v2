@@ -241,18 +241,18 @@ class HBNBCommand(cmd.Cmd):
         objects = storage.all()
         my_list = []
         if not args:
-            for key in objects:
-                my_list.append(str(objects[key]))
+            for key, obj in objects.items():
+                my_list.append(str(obj))
             print(my_list)
             return
         try:
             args = args.split(" ")
             if args[0] not in self.classes:
                 raise NameError()
-            for key in objects:
+            for key, obj in objects.items():
                 name = key.split('.')
                 if name[0] == args[0]:
-                    my_list.append(str(objects[key]))
+                    my_list.append(str(obj))
             print(my_list)
         except NameError:
             print("** class doesn't exist **")
