@@ -14,8 +14,8 @@ def do_pack():
     timestamp = now.strftime("%Y%m%d%H%M%S")
 
     try:
-        local("mkdir -p {}".format(dir_name))
-        local("tar -cvzf {}/{} /web_static".format(dir_name, timestamp))
+        local("mkdir -p versions")
+        local("tar -cvzf {}/{} web_static/".format(dir_name, timestamp))
 
         return "{}/web_static_{}.tgz".format(dir_name, timestamp)
     except Exception as e:
