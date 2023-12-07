@@ -9,6 +9,7 @@ from datetime import datetime
 
 
 def do_pack():
+    """ A script that generates archive the contents of web_static folder"""
     dir_name = "versions"
     now = datetime.now()
     timestamp = now.strftime("%Y%m%d%H%M%S")
