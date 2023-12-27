@@ -34,6 +34,7 @@ def c(text):
 
 
 @app.route('/python')
+@app.route('/python/')
 @app.route('/python/<text>', strict_slashes=False)
 def python(text="is cool"):
     """display Python followed by the value of the text variable"""
