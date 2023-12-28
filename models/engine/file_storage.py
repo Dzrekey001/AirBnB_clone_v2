@@ -76,3 +76,7 @@ class FileStorage:
                     self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    def close(self):
+        """close the link to the file db"""
+        self.reload()
