@@ -7,17 +7,17 @@ from models.state import State
 app = FLask(__name__)
 
 
-@app.teardown_appcontext
-def teardown(self):
-    """restart storage session"""
-    storage.close()
-
-
 @app.route('/states_list', strick_slashes=True)
 def state_ls():
     """return the list of states in the storage"""
     states = storage.all()
     return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def teardown(self):
+    """restart storage session"""
+    storage.close()
 
 
 if __name__ == "__main__":
