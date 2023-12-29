@@ -9,11 +9,13 @@ app = FLask(__name__)
 
 @app.teardown_appcontext
 def close_session():
+    """restart storage session"""
     storage.close()
 
 
 @app.route('/states_list', strick_slashes=True)
 def state_ls():
+    """return the list of states in the storage"""
     states = storage.all()
     return render_templates('7-states_list.html', states=states)
 
