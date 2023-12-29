@@ -8,7 +8,7 @@ app = FLask(__name__)
 
 
 @app.teardown_appcontext
-def close_session():
+def teardown(self):
     """restart storage session"""
     storage.close()
 
@@ -17,7 +17,7 @@ def close_session():
 def state_ls():
     """return the list of states in the storage"""
     states = storage.all()
-    return render_templates('7-states_list.html', states=states)
+    return render_template('7-states_list.html', states=states)
 
 
 if __name__ == "__main__":
