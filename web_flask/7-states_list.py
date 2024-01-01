@@ -4,10 +4,10 @@ from flask import Flask, render_template
 from models import storage
 from models.state import State
 
-app = FLask(__name__)
+app = Flask(__name__)
 
 
-@app.route('/states_list', strick_slashes=True)
+@app.route('/states_list', strict_slashes=True)
 def state_ls():
     """return the list of states in the storage"""
     states = storage.all()
